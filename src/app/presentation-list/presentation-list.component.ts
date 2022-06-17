@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Presentation} from "../Presentation";
 import {PresentationService} from "../presentation.service";
+import {HttpErrorResponse, HttpEventType} from "@angular/common/http";
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-presentation-list',
@@ -13,7 +15,7 @@ export class PresentationListComponent implements OnInit {
   showEdit:boolean=false;
   page = 1;
   count = 0;
-  tableSize = 7;
+  tableSize = 2;
   tableSizes = [3, 6, 9, 12];
   index!:any;
 
@@ -45,7 +47,14 @@ export class PresentationListComponent implements OnInit {
     this.getAll();
   }
   download(filename: string){
-    this.servicePres.download(filename).subscribe();
+    this.servicePres.download(filename).subscribe( event => {
+        console.log(event);
+        saveAs(event, filename);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
   }
 
   addPresentation(event:any){
@@ -61,7 +70,7 @@ export class PresentationListComponent implements OnInit {
     data.append('file', event[2]);
     this.servicePres.addPresentation(data).subscribe((resultat)=>{
         console.log(resultat);
-        this.presentations.push(resultat);
+        this.presentations.unshift(resultat);
 
       },
       (error)=>{
@@ -77,27 +86,29 @@ export class PresentationListComponent implements OnInit {
 
   }
   updatePresentation(event:any){
-/*
-    let idstock= event[3].idStock;
-    let idrayon= event[2].idRayon;
+
+    let close= document.getElementById("close")
+    close?.click()
+    console.log(event[0]);
+
     let data= new FormData();
 
-    data.append('p', JSON.stringify(event[0]));
-    data.append('file', event[1]);
-    data.append('id', this.Presentation.idPresentation.toString());
-    data.append('cat', event[4].categoriePresentation);
-    this.servicePres.updatePresentation(data,idstock,idrayon).subscribe((resultat)=>{
+    data.append('title', event[0].title);
+    data.append('description', event[0].description);
+    data.append('preview', event[1]);
+    data.append('file', event[2]);
+    data.append('id', this.presentation.id.toString());
+    this.servicePres.updatePresentation(data).subscribe((resultat)=>{
         console.log(resultat);
-        this.Presentations[this.index]=resultat;
+        this.presentations[this.index]=resultat;
       },
       (error)=>{
         console.log(error.status)
       }
     );
-    let close= document.getElementById("close")
-    close?.click()
-    this.showEdit=false;*/
+    this.showEdit=false;
   }
+
   delete(id:number){
     var result=confirm("sure?");
     if(result){

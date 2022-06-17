@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-8 mx-auto">
+    <div class="col-lg-10 mx-auto">
       <input type="submit" value="Add presentation" class="btn btn-primary" data-bs-toggle="modal"
              data-bs-target="#exampleModal">
       <!-- List group-->
@@ -18,7 +18,7 @@
               <h5 class="mt-0 font-weight-bold mb-2">{{pres.title}}</h5>
               <p class="font-italic text-muted mb-0 small">{{pres.description}}</p>
               <div class="d-flex align-items-center justify-content-between mt-1">
-                <h6 class="font-weight-bold my-2">{{pres.previewImage}}</h6>
+                <h6 class="font-weight-bold my-2">{{pres.fileName}}</h6>
                 <ul class="list-inline small">
                   <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                   <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -29,7 +29,7 @@
               </div>
               <button class="btn btn-success mx-2" (click)="download(pres.fileName)">download</button>
               <input type="submit" value="edit" class="btn btn-warning"
-                     data-toggle="modal" data-target="#exampleModal" (click)="update(pres,i)">
+                     data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="update(pres,i)">
               <button class="btn btn-danger mx-2" (click)="delete(pres.id)">Delete</button>
             </div><img [src]="'data:image/jpeg;base64,'+ pres.picByte " alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
           </div> <!-- End -->
