@@ -1,0 +1,66 @@
+
+<div class="modal-body">
+  <form #f="ngForm" id="addPresentation" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="libelle">Title</label>
+      <input type="text" class="form-control" [ngClass]="{'is-invalid': libelle.invalid&&libelle.touched,'is-valid': libelle.valid&&libelle.touched}"
+             id="libelle"  name="title" ngModel #libelle="ngModel" required minlength="3" [(ngModel)]="presentation.title" >
+      <div  *ngIf="libelle.invalid&&libelle.touched">
+        <div *ngIf="libelle.errors?.required">
+          <span style="color: darkred">required</span>
+        </div>
+        <div style="color: darkred" *ngIf="libelle.errors?.minlength">
+          <span style="color: darkred">at least 3 caracters</span>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="code">Description</label>
+      <textarea class="form-control" id="code" [ngClass]="{'is-invalid': code.invalid&&code.touched,'is-valid': code.valid&&code.touched}"
+                name="description" ngModel #code="ngModel" required minlength="15" [(ngModel)]="presentation.description" ></textarea>
+      <div  *ngIf="code.invalid&&code.touched">
+        <div *ngIf="code.errors?.required">
+          <span style="color: darkred">required</span>
+        </div>
+        <div style="color: darkred" *ngIf="code.errors?.minlength">
+          <span style="color: darkred">at least 15 caracters</span>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputFile">Preview image</label>
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="preview" id="exampleInputFile" (change)="onImage($event)">
+          <label class="custom-file-label" for="exampleInputFile">Choose image</label>
+        </div>
+
+      </div>
+      <img [src]="imgUrl" *ngIf="imgUrl" style="width:25rem; margin-top: 20px " class="img-fluid">
+
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputFile1">File</label>
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="preview" id="exampleInputFile1" (change)="onfile($event)">
+          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+        </div>
+
+      </div>
+      <span>{{presfile.name}}</span>
+    </div>
+
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  <input type="submit" value="save" class="btn btn-primary" form="addPresentation" [disabled]="f.invalid" (click)="sendDataToParent(f)">
+</div>
