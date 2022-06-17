@@ -15,7 +15,7 @@ export class PresentationListComponent implements OnInit {
   showEdit:boolean=false;
   page = 1;
   count = 0;
-  tableSize = 2;
+  tableSize = 5;
   tableSizes = [3, 6, 9, 12];
   index!:any;
 

@@ -7,6 +7,7 @@ import { PresentationFormComponent } from './presentation-form/presentation-form
 import {HttpClientModule} from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -14,12 +15,13 @@ import {FormsModule} from "@angular/forms";
     PresentationListComponent,
     PresentationFormComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        FormsModule,
+        NgxPaginationModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
